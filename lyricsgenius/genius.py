@@ -142,6 +142,33 @@ class Genius(API, PublicAPI):
                       "Song URL: https://genius.com/{}".format(path))
             return None
 
+        else:
+
+            head = div.find("div", class_=re.compile("LyricsHeader"))
+
+            if head:
+                head.replace_with("")
+
+            rem = div.find("div", class_=re.compile("Lyrics__Footer"))
+
+            if rem:
+                rem.replace_with("")
+
+            header = div.find("h2", class_=re.compile("TextLabel"))
+
+            if header:
+                header.replace_with("")
+
+            controls = div.find("div", class_=re.compile("LyricsControls"))
+
+            if controls:
+                controls.replace_with("")
+
+            share = div.find("div", class_=re.compile("LyricsFooter"))
+
+            if share:
+                share.replace_with("")
+
         lyrics = "\n".join([div.get_text() for div in divs])
 
         # Remove [Verse], [Bridge], etc.
